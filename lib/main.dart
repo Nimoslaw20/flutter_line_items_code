@@ -4,12 +4,10 @@ void main() {
   runApp(const MyApp());
 }
 
-List lineItems =  [];
+List lineItems = [];
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-
 
   // This widget is the root of your application.
   @override
@@ -36,18 +34,14 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-
   final String title;
-
-
-
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _counter = 1;
 
   final nameController = TextEditingController();
   final titleController = TextEditingController();
@@ -63,13 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    List _itemsCounter = List.generate(_counter, (index) => index);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -100,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
@@ -109,51 +103,50 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  // optional flex property if flex is 1 because the default flex is 1
-                  flex: 1,
-                  child: TextField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                        labelText: 'Name',
-                        labelStyle: TextStyle(
-                            color: Colors.grey[400]
-                        )
+            Text(
+              '$_itemsCounter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            Column(
+              children: _itemsCounter
+                  .map(
+                    (e) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          // optional flex property if flex is 1 because the default flex is 1
+                          flex: 1,
+                          child: TextField(
+                            controller: nameController,
+                            decoration: InputDecoration(
+                                labelText: 'Name',
+                                labelStyle: TextStyle(color: Colors.grey[400])),
+                          ),
+                        ),
+                        Expanded(
+                          // optional flex property if flex is 1 because the default flex is 1
+                          flex: 1,
+                          child: TextField(
+                            controller: titleController,
+                            decoration: InputDecoration(
+                                labelText: 'Title',
+                                labelStyle: TextStyle(color: Colors.grey[400])),
+                          ),
+                        ),
+                        Expanded(
+                          // optional flex property if flex is 1 because the default flex is 1
+                          flex: 1,
+                          child: TextField(
+                            controller: titleController,
+                            decoration: InputDecoration(
+                                labelText: 'Title',
+                                labelStyle: TextStyle(color: Colors.grey[400])),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-
-                Expanded(
-                  // optional flex property if flex is 1 because the default flex is 1
-                  flex: 1,
-                  child: TextField(
-                    controller: titleController,
-                    decoration: InputDecoration(
-                        labelText: 'Title',
-                        labelStyle: TextStyle(
-                            color: Colors.grey[400]
-                        )
-                    ),
-                  ),
-                ),
-
-                Expanded(
-                  // optional flex property if flex is 1 because the default flex is 1
-                  flex: 1,
-                  child: TextField(
-                    controller: titleController,
-                    decoration: InputDecoration(
-                        labelText: 'Title',
-                        labelStyle: TextStyle(
-                            color: Colors.grey[400]
-                        )
-                    ),
-                  ),
-                ),
-              ],
+                  )
+                  .toList(),
             ),
           ],
         ),
@@ -165,8 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
-
 }
 
 class Data {
